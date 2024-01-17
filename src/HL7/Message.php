@@ -86,7 +86,8 @@ class Message
             return;
         }
 
-        $segments = preg_split("/[\n\r" . $this->segmentSeparator . ']/', $msgStr, -1, PREG_SPLIT_NO_EMPTY);
+        // DONE 这里为了兼容迪瑞的，去掉了 \n
+        $segments = preg_split("/[\r" . $this->segmentSeparator . ']/', $msgStr, -1, PREG_SPLIT_NO_EMPTY);
         $this->setSeparators($segments[0]); // First segment is MSH, the control segment
 
         // Do all segments

@@ -203,5 +203,3 @@ Bug reports and feature requests can be submitted on the [Github Issue Tracker](
 
 ### Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for information.
-
-test update
