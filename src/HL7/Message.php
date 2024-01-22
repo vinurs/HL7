@@ -86,6 +86,14 @@ class Message
             return;
         }
 
+        /* 操蛋的迪瑞，发的数据包不是标准的，这里要修改一下 ^~& 替换成 ^~\& */
+        if (preg_match('/^MSH\|\^~&\|/', $msgStr)) {
+            echo "收到了迪瑞操蛋的包，开始处理\n";
+            // 如果是，则替换为"MSH|^~\&|"
+            $msgStr = preg_replace('/^MSH\|\^~&\|/', 'MSH|^~\&|', $msgStr);
+            echo "结束处理迪瑞的包\n";
+        }
+
         // DONE 这里为了兼容迪瑞的，去掉了 \n
         $segments = preg_split("/[\r" . $this->segmentSeparator . ']/', $msgStr, -1, PREG_SPLIT_NO_EMPTY);
         $this->setSeparators($segments[0]); // First segment is MSH, the control segment
