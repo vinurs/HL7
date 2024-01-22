@@ -94,6 +94,14 @@ class Message
             echo "结束处理迪瑞的包\n";
         }
 
+        /* 雷杜的包是以 MSH|||^~\&| 开始的，因此也要做一下特殊处理 */
+        if (preg_match('/^MSH\|\|\|\^~\\\&\|/', $msgStr)) {
+            echo "收到了雷杜操蛋的包，开始处理\n";
+            // 如果是，则替换为"MSH|^~\&|"
+            $msgStr = preg_replace('/^MSH\|\|\|\^~\\\&\|/', 'MSH|^~\&|', $msgStr);
+            echo "结束处理雷杜的包\n";
+        }
+
         // DONE 这里为了兼容迪瑞的，去掉了 \n
         $segments = preg_split("/[\r" . $this->segmentSeparator . ']/', $msgStr, -1, PREG_SPLIT_NO_EMPTY);
         $this->setSeparators($segments[0]); // First segment is MSH, the control segment
